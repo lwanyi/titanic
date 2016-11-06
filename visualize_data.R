@@ -3,7 +3,7 @@ titanic.data <- read.csv('M:/DataScientist/Kaggle/Titanic/train.csv')
 legend_text <- c("0", "1")
 # color_type <- c("grey60","grey80")
 color_type <- c("red", "green  ")
-# layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE))
+layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE))
 # Viz Survived with Fare
 survived_with_fare <- table(titanic.data$Survived, 
 	cut(titanic.data$Fare, c(0, 20, 40, 60, 80, 100, 200, 300, 400, 500, 600)))

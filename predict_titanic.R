@@ -103,11 +103,11 @@ for (i in diff_nums){
 	th_results <- c(th_results, th_acc)
 }
 print(predict_with_threshold_model(train.dataset, 10)[[2]])  # Using the age of 10
-# print(th_results)
-# plot(diff_nums, th_results, type="b", col="dark red", lwd=2, pch=18,
-#	main="Accuracy vs. Age",
-#	xlab="Different Age to Split", ylab="Accuracy")
-# text(diff_nums, th_results, labels=round(th_results, 3),cex=1, pos=1)
+print(th_results)
+plot(diff_nums, th_results, type="b", col="dark red", lwd=2, pch=18,
+	main="Accuracy vs. Age",
+	xlab="Different Age to Split", ylab="Accuracy")
+text(diff_nums, th_results, labels=round(th_results, 3),cex=1, pos=1)
 
 
 ## model 2 : Build decision tree model
@@ -130,28 +130,28 @@ predict_with_decision_tree <- function(model, dataset){
 }
 
 ### Compare and optimize
-# dt_results <- c()
-# max_acc <- 0
-# diff_nums <- 2:20
-# for (i in diff_nums){  # optimization: 19
-#	dt_model <- build_decision_tree_model(train.set, i)
-#	dt_acc <- predict_with_decision_tree(dt_model, test.set)[[1]]  # return mutilple vars
-#	print(paste("With smallest leaf of ", i, "nodes, accuracy is ", dt_acc))
-#	dt_results <- c(dt_results, dt_acc)
-#	if (dt_acc > max_acc){
-#		max_acc <- dt_acc
-#		best_model <- dt_model
-#	}
-#}
+dt_results <- c()
+max_acc <- 0
+diff_nums <- 2:20
+for (i in diff_nums){  # optimization: 19
+	dt_model <- build_decision_tree_model(train.set, i)
+	dt_acc <- predict_with_decision_tree(dt_model, test.set)[[1]]  # return mutilple vars
+	print(paste("With smallest leaf of ", i, "nodes, accuracy is ", dt_acc))
+	dt_results <- c(dt_results, dt_acc)
+	if (dt_acc > max_acc){
+		max_acc <- dt_acc
+		best_model <- dt_model
+	}
+}
 print(predict_with_decision_tree(build_decision_tree_model(train.set, 19), test.set)[[2]])
-# layout(matrix(c(1,2), 2, 2, byrow=TRUE))
+layout(matrix(c(1,2), 2, 2, byrow=TRUE))
 # Visualize tree
 print(paste("The Best Performance is ", max_acc))
-# fancyRpartPlot(best_model, main="Visualize the Decision Tree with Highest Accuracy")
-# plot(diff_nums, dt_results, type="b", col="dark red", lwd=2, pch=18,
-#	main="Accuracy vs. Least Nodes",
-#	xlab="Different Nodes", ylab="Accuracy")
-# text(diff_nums, dt_results, labels=round(dt_results, 2), cex=1, pos=1)
+fancyRpartPlot(best_model, main="Visualize the Decision Tree with Highest Accuracy")
+plot(diff_nums, dt_results, type="b", col="dark red", lwd=2, pch=18,
+	main="Accuracy vs. Least Nodes",
+	xlab="Different Nodes", ylab="Accuracy")
+ text(diff_nums, dt_results, labels=round(dt_results, 2), cex=1, pos=1)
 
 ## model 3 : Build random forests model
 build_random_forests_model <- function(dataset, num_of_trees=100, try_times=3){
